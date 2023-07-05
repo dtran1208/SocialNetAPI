@@ -1,0 +1,16 @@
+{
+    "name": "SocialNetAPI",
+    "version": "1.0.0",
+    "description": "Social Network API using NoSQL database",
+    "main": "index.js",
+    "scripts": {
+      "start": "node index.js"
+    },
+    "author": "Duc Tran",
+    "license": "MIT",
+    "dependencies": {
+      "express": "^4.17.1",
+      "mongoose": "^5.13.7"
+    }
+  }
+  

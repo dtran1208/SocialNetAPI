@@ -7,6 +7,21 @@ const userController = {
       .catch(err => res.status(500).json(err));
   },
 
+  getUserById(req, res) {
+    const userId = req.params.userId;
+    User.findById(userId)
+      .then(user => {
+        if (!user) {
+          return res.status(404).json({ message: 'User not found' });
+        }
+        res.json(user);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  },
+
   createUser(req, res) {
     User.create(req.body)
       .then(user => {

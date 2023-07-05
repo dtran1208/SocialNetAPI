@@ -1,56 +1,36 @@
-const router = require('express').Router();
-const {
-  getAllUsers,
-  getUserById,
-  createUser,
-  updateUser,
-  deleteUser,
-  addFriend,
-  deleteFriend
-} = require('./controllers/userController');
-
-const {
-  getAllThoughts,
-  getThoughtById,
-  createThought,
-  updateThought,
-  deleteThought,
-  createReaction,
-  deleteReaction,
-} = require('./controllers/thoughtController');
-
-const undefinedRouteHandler = (req, res) => {
-  res.status(404).json({ message: 'Route not found' });
-};
+const express = require('express');
+const router = express.Router();
+const userController = require('./controllers/userController');
+const thoughtController = require('./controllers/thoughtController');
 
 router.route('/users')
-  .get(getAllUsers)
-  .post(createUser);
+  .get(userController.getAllUsers)
+  .post(userController.createUser);
 
-router.route('/users/:userId/')
-  .get(getUserById)
-  .put(updateUser)
-  .delete(deleteUser);
+router.route('/users/:userId')
+  .get(userController.getUserById)
+  .put(userController.updateUser)
+  .delete(userController.deleteUser);
 
 router.route('/users/:userId/friends/:friendId')
-  .post(addFriend)
-  .delete(deleteFriend);
+  .post(userController.addFriend);
 
+router.route('/users/:userId/thoughts')
+  .post(userController.createUserThought);
+
+// Thought routes
 router.route('/thoughts')
-  .get(getAllThoughts)
-  .post(createThought);
+  .get(thoughtController.getAllThoughts);
 
 router.route('/thoughts/:thoughtId')
-  .get(getThoughtById)
-  .put(updateThought)
-  .delete(deleteThought);
+  .get(thoughtController.getThoughtById)
+  .put(thoughtController.updateThought)
+  .delete(thoughtController.deleteThought);
 
 router.route('/thoughts/:thoughtId/reactions')
-  .post(createReaction);
+  .post(thoughtController.createReaction);
 
 router.route('/thoughts/:thoughtId/reactions/:reactionId')
-  .delete(deleteReaction);
-
-router.route('*').all(undefinedRouteHandler);
+  .delete(thoughtController.deleteReaction);
 
 module.exports = router;

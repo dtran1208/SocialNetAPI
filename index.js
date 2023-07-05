@@ -1,7 +1,10 @@
 const express = require('express');
-const mongoose = require('mongoose');
-
 const app = express();
+const mongoose = require('mongoose');
+require('dotenv').config();
+
+const routes = require('./routes');
+
 const PORT = process.env.PORT || 3001;
 
 app.use(express.json());
@@ -14,8 +17,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/social-network-
   useFindAndModify: false
 });
 
-// Use the routes defined in routes.js
-app.use(require('./routes'));
+app.use(routes);
 
 mongoose.set('debug', true);
 

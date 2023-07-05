@@ -1,7 +1,22 @@
 const { User, Thought } = require('../models/models');
 
 const userController = {
-  // ...
+  getAllUsers(req, res) {
+    User.find({})
+      .then(users => res.json(users))
+      .catch(err => res.status(500).json(err));
+  },
+
+  createUser(req, res) {
+    User.create(req.body)
+      .then(user => {
+        res.status(201).json(user);
+      })
+      .catch(err => {
+        res.status(400).json(err);
+      });
+  },
+
 
   addFriend(req, res) {
     User.findOneAndUpdate(

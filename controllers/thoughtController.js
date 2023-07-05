@@ -7,23 +7,6 @@ const thoughtController = {
       .catch(err => res.status(500).json(err));
   },
 
-  updateThought(req, res) {
-    const thoughtId = req.params.thoughtId;
-    const updatedThought = req.body;
-
-    Thought.findByIdAndUpdate(thoughtId, updatedThought, { new: true })
-      .then(thought => {
-        if (!thought) {
-          return res.status(404).json({ message: 'Thought not found' });
-        }
-        res.json(thought);
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-      });
-  },
-
   getThoughtById(req, res) {
     Thought.findOne({ _id: req.params.thoughtId })
       .then(thought => {

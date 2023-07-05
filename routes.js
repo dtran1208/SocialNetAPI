@@ -7,7 +7,7 @@ const {
   deleteUser,
   addFriend,
   deleteFriend
-} = require('../controllers/userController');
+} = require('./controllers/userController');
 
 const {
   getAllThoughts,
@@ -17,7 +17,7 @@ const {
   deleteThought,
   createReaction,
   deleteReaction
-} = require('../controllers/thoughtController');
+} = require('./controllers/userController');
 
 // /api/users
 router

@@ -17,7 +17,6 @@ const userController = {
       });
   },
 
-
   addFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
@@ -123,7 +122,7 @@ const userController = {
         if (!thoughtData) {
           return res.status(404).json({ message: 'Thought not found' });
         }
-        res.json({ message: 'Reaction deleted successfully' });
+        res.json(thoughtData);
       })
       .catch(err => {
         console.log(err);

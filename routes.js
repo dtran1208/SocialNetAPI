@@ -3,6 +3,11 @@ const router = express.Router();
 const userController = require('./controllers/userController');
 const thoughtController = require('./controllers/thoughtController');
 
+
+// Define routes
+router.get('/users', userController.getAllUsers);
+router.get('/users/:userId', userController.getUserById);
+router.post('/users', userController.createUser);
 router.route('/users')
   .get(userController.getAllUsers)
   .post(userController.createUser);

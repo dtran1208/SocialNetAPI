@@ -3,35 +3,30 @@ const { User, Thought } = require('../models/models');
 const thoughtController = {
   getAllThoughts(req, res) {
     Thought.find({})
-      .populate('reactions')
-      .select('-__v')
-      .then(thoughtData => res.json(thoughtData))
-      .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-      });
+      .then(thoughts => res.json(thoughts))
+      .catch(err => res.status(500).json(err));
   },
+
   getThoughtById(req, res) {
     Thought.findOne({ _id: req.params.thoughtId })
-      .populate('reactions')
-      .select('-__v')
-      .then(thoughtData => {
-        if (!thoughtData) {
+      .then(thought => {
+        if (!thought) {
           return res.status(404).json({ message: 'Thought not found' });
         }
-        res.json(thoughtData);
+        res.json(thought);
       })
       .catch(err => {
         console.log(err);
         res.status(500).json(err);
       });
   },
-  createThoughts(req, res) {
+
+  createThought(req, res) {
     Thought.create(req.body)
-      .then(thoughtData => {
+      .then(thought => {
         return User.findOneAndUpdate(
           { _id: req.body.userId },
-          { $push: { thoughts: thoughtData._id } },
+          { $push: { thoughts: thought._id } },
           { new: true }
         );
       })
@@ -46,6 +41,7 @@ const thoughtController = {
         res.status(500).json(err);
       });
   },
+
   updateThought(req, res) {
     Thought.findOneAndUpdate({ _id: req.params.thoughtId }, req.body, { new: true })
       .then(thoughtData => {
@@ -59,6 +55,7 @@ const thoughtController = {
         res.status(500).json(err);
       });
   },
+
   deleteThought(req, res) {
     Thought.findOneAndDelete({ _id: req.params.thoughtId })
       .then(thoughtData => {
@@ -82,6 +79,7 @@ const thoughtController = {
         res.status(500).json(err);
       });
   },
+
   createReaction(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
@@ -99,6 +97,7 @@ const thoughtController = {
         res.status(500).json(err);
       });
   },
+
   deleteReaction(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
@@ -109,7 +108,7 @@ const thoughtController = {
         if (!thoughtData) {
           return res.status(404).json({ message: 'Thought not found' });
         }
-        res.json({ message: 'Reaction deleted successfully' });
+        res.json(thoughtData);
       })
       .catch(err => {
         console.log(err);

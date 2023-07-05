@@ -1,5 +1,5 @@
 {
-    "name": "SocialNetAPI",
+    "name": "social-net-api",
     "version": "1.0.0",
     "description": "Social Network API using NoSQL database",
     "main": "index.js",

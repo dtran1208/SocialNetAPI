@@ -3,7 +3,7 @@ const { User, Thought } = require('../models/models');
 const userController = {
   // ...
 
-  createFriend(req, res) {
+  addFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
       { $addToSet: { friends: req.params.friendId } },

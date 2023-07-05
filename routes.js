@@ -7,7 +7,7 @@ const {
   deleteUser,
   addFriend,
   deleteFriend
-} = require('./controllers/userController');
+} = require('./controllers/userController.js');
 
 const {
   getAllThoughts,
@@ -17,7 +17,8 @@ const {
   deleteThought,
   createReaction,
   deleteReaction
-} = require('./controllers/userController');
+} = require('./controllers/throughtController.js');
+
 
 // /api/users
 router
@@ -32,32 +33,33 @@ router
   .put(updateUser)
   .delete(deleteUser);
 
-
 // /api/users/:userId/friends/:friendId
 router
   .route('/users/:userId/friends/:friendId')
   .post(addFriend)
   .delete(deleteFriend);
 
-  // /api/thoughts
+// /api/thoughts
 router
-.route('/thoughts')
-.get(getAllThoughts)
-.post(createThought);
+  .route('/thoughts')
+  .get(getAllThoughts)
+  .post(createThought);
 
 // /api/thoughts/:thoughtId
 router
-.route('/thoughts/:thoughtId')
-.get(getThoughtById)
-.put(updateThought)
-.delete(deleteThought);
+  .route('/thoughts/:thoughtId')
+  .get(getThoughtById)
+  .put(updateThought)
+  .delete(deleteThought);
 
 // /api/thoughts/:thoughtId/reactions
 router
-.route('/thoughts/:thoughtId/reactions')
-.post(createReaction);
+  .route('/thoughts/:thoughtId/reactions')
+  .post(createReaction);
 
 // /api/thoughts/:thoughtId/reactions/:reactionId
 router
-.route('/thoughts/:thoughtId/reactions/:reactionId')
-.delete(deleteReaction);
+  .route('/thoughts/:thoughtId/reactions/:reactionId')
+  .delete(deleteReaction);
+
+module.exports = router;

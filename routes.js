@@ -7,7 +7,7 @@ const {
   deleteUser,
   addFriend,
   deleteFriend
-} = require('./controllers/userController.js');
+} = require('./controllers/userController');
 
 const {
   getAllThoughts,
@@ -16,50 +16,41 @@ const {
   updateThought,
   deleteThought,
   createReaction,
-  deleteReaction
-} = require('./controllers/throughtController.js');
+  deleteReaction,
+} = require('./controllers/thoughtController');
 
+const undefinedRouteHandler = (req, res) => {
+  res.status(404).json({ message: 'Route not found' });
+};
 
-// /api/users
-router
-  .route('/users')
+router.route('/users')
   .get(getAllUsers)
   .post(createUser);
 
-// /api/users/:userId
-router
-  .route('/users/:userId')
+router.route('/users/:userId/')
   .get(getUserById)
   .put(updateUser)
   .delete(deleteUser);
 
-// /api/users/:userId/friends/:friendId
-router
-  .route('/users/:userId/friends/:friendId')
+router.route('/users/:userId/friends/:friendId')
   .post(addFriend)
   .delete(deleteFriend);
 
-// /api/thoughts
-router
-  .route('/thoughts')
+router.route('/thoughts')
   .get(getAllThoughts)
   .post(createThought);
 
-// /api/thoughts/:thoughtId
-router
-  .route('/thoughts/:thoughtId')
+router.route('/thoughts/:thoughtId')
   .get(getThoughtById)
   .put(updateThought)
   .delete(deleteThought);
 
-// /api/thoughts/:thoughtId/reactions
-router
-  .route('/thoughts/:thoughtId/reactions')
+router.route('/thoughts/:thoughtId/reactions')
   .post(createReaction);
 
-// /api/thoughts/:thoughtId/reactions/:reactionId
-router
-  .route('/thoughts/:thoughtId/reactions/:reactionId')
+router.route('/thoughts/:thoughtId/reactions/:reactionId')
   .delete(deleteReaction);
+
+router.route('*').all(undefinedRouteHandler);
 
 module.exports = router;

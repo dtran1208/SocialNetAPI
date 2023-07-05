@@ -21,7 +21,7 @@ const userController = {
       });
   },
 
-  createThought(req, res) {
+  createUserThought(req, res) {
     Thought.create(req.body)
       .then(thoughtData => {
         return User.findOneAndUpdate(

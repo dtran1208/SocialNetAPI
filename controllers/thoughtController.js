@@ -26,7 +26,7 @@ const thoughtController = {
         res.status(500).json(err);
       });
   },
-  createThought(req, res) {
+  createThoughts(req, res) {
     Thought.create(req.body)
       .then(thoughtData => {
         return User.findOneAndUpdate(
